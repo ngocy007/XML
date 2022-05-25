@@ -8,7 +8,7 @@ using XML.Models;
 
 namespace XML.Controllers
 {
-    public class SanController : Controller
+    public class BangXepHangController : Controller
     {
         XmlDocument doc = new XmlDocument();
         string file;
@@ -21,78 +21,66 @@ namespace XML.Controllers
             doc.Load(File1);
             root = doc.DocumentElement;
         }
-
-        // GET: San
+        // GET: BangXepHang
         public ActionResult Index()
         {
-
             initValue();
 
-            XmlNodeList San = root.SelectNodes("SANVD");
-            List<SAN> sans = new List<SAN>();
+            XmlNodeList BXHs = root.SelectNodes("BANGXH");
+            List<BANGXH> DSBXH = new List<BANGXH>();
 
-            foreach (XmlNode SanNode in San)
+            foreach (XmlNode BXH in BXHs)
             {
-                SAN temp = new SAN();
-                temp.MASAN = SanNode["MASAN"].InnerText;
-                temp.TENSAN = SanNode["TENSAN"].InnerText;
-                temp.DIACHI = SanNode["DIACHI"].InnerText;
-                sans.Add(temp);
+                BANGXH temp = new BANGXH();
+                temp.NAM = BXH["NAM"].InnerText;
+                temp.THUA = BXH["THUA"].InnerText;
+                temp.VONG = BXH["VONG"].InnerText;
+                temp.THANG = BXH["THANG"].InnerText;
+                temp.SOTRAN = BXH["SOTRAN"].InnerText;
+                temp.HOA = BXH["HOA"].InnerText;
+                temp.DIEM = BXH["DIEM"].InnerText;
+                temp.HIEUSO = BXH["HIEUSO"].InnerText;
+                temp.HANG = BXH["HANG"].InnerText;
+                DSBXH.Add(temp);
             }
-
-            return View(sans);
+            return View(DSBXH);
         }
 
-        // GET: San/Details/5
+        // GET: BangXepHang/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: San/Create
+        // GET: BangXepHang/Create
         public ActionResult Create()
         {
-
             return View();
         }
 
-        // POST: San/Create
+        // POST: BangXepHang/Create
         [HttpPost]
-        public ActionResult Create(SAN sanMoi)
+        public ActionResult Create(FormCollection collection)
         {
-            initValue();
+            try
+            {
+                // TODO: Add insert logic here
 
-            XmlElement san = doc.CreateElement("SANVD");
-
-            XmlElement MASAN = doc.CreateElement("MASAN");
-            MASAN.InnerText = sanMoi.MASAN;
-            san.AppendChild(MASAN);
-
-            XmlElement TENSAN = doc.CreateElement("TENSAN");
-            TENSAN.InnerText = sanMoi.MASAN;
-            san.AppendChild(TENSAN);
-
-            XmlElement DIACHI = doc.CreateElement("DIACHI");
-            DIACHI.InnerText = sanMoi.MASAN;
-            san.AppendChild(DIACHI);
-
-            XmlNode temp = root.SelectSingleNode("SANVD[last()]");
-
-
-            root.InsertAfter(san, temp);
-            doc.Save(File1);
-            ViewBag.t = "thanh cong";
-            return View();
-
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
 
-        // GET: San/Edit/5
+        // GET: BangXepHang/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: San/Edit/5
+        // POST: BangXepHang/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -108,13 +96,13 @@ namespace XML.Controllers
             }
         }
 
-        // GET: San/Delete/5
+        // GET: BangXepHang/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: San/Delete/5
+        // POST: BangXepHang/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {

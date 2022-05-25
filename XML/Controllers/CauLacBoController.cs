@@ -8,7 +8,7 @@ using XML.Models;
 
 namespace XML.Controllers
 {
-    public class SanController : Controller
+    public class CauLacBoController : Controller
     {
         XmlDocument doc = new XmlDocument();
         string file;
@@ -21,78 +21,60 @@ namespace XML.Controllers
             doc.Load(File1);
             root = doc.DocumentElement;
         }
-
-        // GET: San
+        // GET: CauLacBo
         public ActionResult Index()
         {
-
             initValue();
 
-            XmlNodeList San = root.SelectNodes("SANVD");
-            List<SAN> sans = new List<SAN>();
+            XmlNodeList CLBs = root.SelectNodes("CLB");
+            List<CLB> DSCLB = new List<CLB>();
 
-            foreach (XmlNode SanNode in San)
+            foreach (XmlNode CLB in CLBs)
             {
-                SAN temp = new SAN();
-                temp.MASAN = SanNode["MASAN"].InnerText;
-                temp.TENSAN = SanNode["TENSAN"].InnerText;
-                temp.DIACHI = SanNode["DIACHI"].InnerText;
-                sans.Add(temp);
+                CLB temp = new CLB();
+                temp.MACLB = CLB["MACLB"].InnerText;
+                temp.TENCLB = CLB["TENCLB"].InnerText;
+                DSCLB.Add(temp);
             }
 
-            return View(sans);
+            return View(DSCLB);
         }
 
-        // GET: San/Details/5
+        // GET: CauLacBo/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: San/Create
+        // GET: CauLacBo/Create
         public ActionResult Create()
         {
-
             return View();
         }
 
-        // POST: San/Create
+        // POST: CauLacBo/Create
         [HttpPost]
-        public ActionResult Create(SAN sanMoi)
+        public ActionResult Create(FormCollection collection)
         {
-            initValue();
+            try
+            {
+                // TODO: Add insert logic here
 
-            XmlElement san = doc.CreateElement("SANVD");
-
-            XmlElement MASAN = doc.CreateElement("MASAN");
-            MASAN.InnerText = sanMoi.MASAN;
-            san.AppendChild(MASAN);
-
-            XmlElement TENSAN = doc.CreateElement("TENSAN");
-            TENSAN.InnerText = sanMoi.MASAN;
-            san.AppendChild(TENSAN);
-
-            XmlElement DIACHI = doc.CreateElement("DIACHI");
-            DIACHI.InnerText = sanMoi.MASAN;
-            san.AppendChild(DIACHI);
-
-            XmlNode temp = root.SelectSingleNode("SANVD[last()]");
-
-
-            root.InsertAfter(san, temp);
-            doc.Save(File1);
-            ViewBag.t = "thanh cong";
-            return View();
-
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
 
-        // GET: San/Edit/5
+        // GET: CauLacBo/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: San/Edit/5
+        // POST: CauLacBo/Edit/5
         [HttpPost]
         public ActionResult Edit(int id, FormCollection collection)
         {
@@ -108,13 +90,13 @@ namespace XML.Controllers
             }
         }
 
-        // GET: San/Delete/5
+        // GET: CauLacBo/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: San/Delete/5
+        // POST: CauLacBo/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
