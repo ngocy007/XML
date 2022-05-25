@@ -29,6 +29,9 @@ namespace XML.Controllers
         {
 
             initValue();
+            /*   ViewBag.San = root["TRANDAU"]["MATRAN"].InnerText;*/
+            /*ViewBag.San = San.SelectSingleNode("MATRAN").InnerText;*/
+            /*ViewBag.San = San["MATRAN"].InnerText;*/
 
             XmlNodeList San = root.SelectNodes("SANVD");
             List<SAN> sans = new List<SAN>();
